@@ -32,7 +32,7 @@ var snd4 = new Audio("btn4.mp3"); // buffers automatically when created
 
 
 function updateCounter() {
-    counter.textContent = 'Points: ' + licznikKlikniec;
+    counter.textContent = 'Punkty: ' + licznikKlikniec;
   }
 
 document.getElementById("zolty").addEventListener("click",  function buttonHandler(){
