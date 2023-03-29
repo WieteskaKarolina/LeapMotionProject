@@ -1,0 +1,67 @@
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .button-row:last-child {
+    justify-content: center;
+  }
+  
+  #zielony {
+    background-color: rgb(67, 189, 15); 
+  }
+  
+  #niebieski {
+    background-color: rgb(0, 140, 255);  
+  }
+  
+  #czerwony {
+    background-color: rgb(255, 0, 0); 
+  }
+  
+  #zolty {
+    background-color: rgb(255, 221, 0); 
+  }
+  
+  #start {
+    border: none;
+    background-color: transparent;
+    margin-top: 50px;
+  }
+
+  #counter{
+    color: #000;
+    font-size: 50px;
+    font-variant: none;
+    font-family: cursive;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    padding: 30px 30px; 
+
+  }
+
+  .guzik {
+    border-radius: 20px; 
+    width: 48%;
+    height: 300px;
+    border-color: black;
+    padding: 30px 30px; 
+    font-size: 30px; 
+    font-variant: none;
+    font-family: cursive;
+    font-weight: bold;
+    font-style: normal;
+    color: white; 
+    background-color: transparent;
+  }
+  
+  #button-container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 40%;
+    margin-bottom: 40%;
+  }
+
+  
