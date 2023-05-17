@@ -1,3 +1,6 @@
+
+
+
 function initMap() {
     const map = L.map('map', {
         maxBounds: [
@@ -6,24 +9,24 @@ function initMap() {
         ],
         minZoom: 15.4, // Set the minimum zoom level
       }).setView([51.749229, 19.453483], 15);
-      
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; OpenStreetMap contributors',
       }).addTo(map);
-      
-  
+
+
     var popup = L.popup();
 
     function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
+
+        console.log("[",e.latlng["lat"],",",e.latlng["lng"],"]")
     }
 
     map.on('click', onMapClick);
 
     var marker = L.marker([51.752511, 19.452952]).addTo(map);
+
+
 
     var mechaniczny_v1 = L.polygon([
         [51.752375, 19.451704],
@@ -51,8 +54,64 @@ function initMap() {
         weight: 3,
       });
 
-      mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22");
-      mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
+    //
+    // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
+    //to jest Json w ktorym sa dane na temat budynkow
+    let bulidingsData = '{"buildings":[' +
+        '{"name":"Mechaniczny1","addres":"Mechaniczny addres" },' +
+        '{"name":"Mechaniczny2","addres":"Mechaniczny addres" },' +
+        '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
+//to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
+    //na podstawie przekazanej nazwy zasysa dane z JSONA bulidingsData
+    //
+    function addBuilindEvent(name) {
+        var elemDiv = document.createElement('div');
+        elemDiv.id="floating-info-box"
+
+        var blur = document.createElement('div');
+        blur.id="blur"
+        // blur.style.height=screen.height+"px"
+
+        var closeBtn = document.createElement('button');
+        closeBtn.id="close-floating-info-box"
+        closeBtn.addEventListener("click",() => {
+            document.getElementById("floating-info-box").remove()
+            document.getElementById("blur").remove()
+        },"false")
+
+        blur.addEventListener("click",() => {
+            document.getElementById("floating-info-box").remove()
+            document.getElementById("blur").remove()
+        },"false")
+
+        elemDiv.append(closeBtn)
+
+        var info1 = document.createElement('span');
+        info1.classList.add("info-box")
+        info1.append(name)
+        elemDiv.append(info1)
+
+        const obj = JSON.parse(bulidingsData);
+        var found = obj.buildings.filter(function(item) { return item.name === name; })[0]['addres']
+
+        var info2 = document.createElement('span');
+        info2.classList.add("info-box")
+        info2.append(found)
+        elemDiv.append(info2)
+
+
+
+        document.body.appendChild(elemDiv);
+        document.body.appendChild(blur);
+
+
+
+    }
+
+    //przypisanie do danego budynku funkcji od okienka jako argument nazwa :))
+    //WAZNE nazwa w argumencie musi znajdowac sie w jsonie inaczej kraksa
+    mechaniczny_v1.addEventListener("click",()=>addBuilindEvent("Mechaniczny1"),false)
+      // mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
 
     var chemiczny_v1 = L.polygon([
         [51.752476, 19.450693],
@@ -79,9 +138,10 @@ function initMap() {
         weight: 3,
       });
 
-    chemiczny_v1.bindPopup("WYDZIAŁ CHEMICZNY\nBUDYNEK A33");
+    // chemiczny_v1.bindPopup("WYDZIAŁ CHEMICZNY\nBUDYNEK A33");
 
   }
-  
+
+
   document.addEventListener('DOMContentLoaded', initMap);
 
