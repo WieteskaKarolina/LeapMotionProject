@@ -58,8 +58,8 @@ function initMap() {
     // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
     //to jest Json w ktorym sa dane na temat budynkow
     let bulidingsData = '{"buildings":[' +
-        '{"name":"Mechaniczny1","addres":"Mechaniczny addres" },' +
-        '{"name":"Mechaniczny2","addres":"Mechaniczny addres" },' +
+        '{"name":"Mechaniczny","addres":"Stefanowskiego 18","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+        '{"name":"Mechaniczny2","addres":"Mechaniczny addres234567" },' +
         '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
 //to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
     //na podstawie przekazanej nazwy zasysa dane z JSONA bulidingsData
@@ -74,6 +74,7 @@ function initMap() {
 
         var closeBtn = document.createElement('button');
         closeBtn.id="close-floating-info-box"
+        // closeBtn.append("X")
         closeBtn.addEventListener("click",() => {
             document.getElementById("floating-info-box").remove()
             document.getElementById("blur").remove()
@@ -86,18 +87,36 @@ function initMap() {
 
         elemDiv.append(closeBtn)
 
+        const obj = JSON.parse(bulidingsData);
+
+
+        var infoCode = document.createElement('span');
+        infoCode.classList.add("info-box")
+        infoCode.append("KOD BUDYNKU: "+obj.buildings.filter(function(item) { return item.code === name; })[0]['code'])
+        elemDiv.append(infoCode)
+
         var info1 = document.createElement('span');
         info1.classList.add("info-box")
-        info1.append(name)
+        info1.append("NAZWA: "+obj.buildings.filter(function(item) { return item.code === name; })[0]['name'])
         elemDiv.append(info1)
 
-        const obj = JSON.parse(bulidingsData);
-        var found = obj.buildings.filter(function(item) { return item.name === name; })[0]['addres']
+        var found = obj.buildings.filter(function(item) { return item.code === name; })[0]['addres']
 
         var info2 = document.createElement('span');
         info2.classList.add("info-box")
-        info2.append(found)
+        info2.append("ADRES: "+found)
         elemDiv.append(info2)
+
+        var qr = document.createElement("img");
+        qr.src = obj.buildings.filter(function(item) { return item.code === name; })[0]['QRSrc']
+        qr.id="qrImage"
+        elemDiv.append(qr)
+
+        var image = document.createElement("img");
+        image.src = obj.buildings.filter(function(item) { return item.code === name; })[0]['imgSrc']
+        image.id="bdImage"
+        elemDiv.append(image)
+
 
 
 
@@ -108,9 +127,10 @@ function initMap() {
 
     }
 
-    //przypisanie do danego budynku funkcji od okienka jako argument nazwa :))
+    //przypisanie do danego budynku funkcji od okienka jako argument kod budynku :))
     //WAZNE nazwa w argumencie musi znajdowac sie w jsonie inaczej kraksa
-    mechaniczny_v1.addEventListener("click",()=>addBuilindEvent("Mechaniczny1"),false)
+    mechaniczny_v1.addEventListener("click",()=>addBuilindEvent("A10"),false)
+
       // mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
 
     var chemiczny_v1 = L.polygon([
