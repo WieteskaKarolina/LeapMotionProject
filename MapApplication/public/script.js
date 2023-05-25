@@ -1,167 +1,430 @@
-
-
-
 function initMap() {
-    const map = L.map('map', {
-        maxBounds: [
-          [51.756338, 19.464765], // Southwest coordinates (south, west)
-          [51.743076, 19.447256], // Southwest coordinates (south, west)
-        ],
-        minZoom: 15.4, // Set the minimum zoom level
-      }).setView([51.749229, 19.453483], 15);
+  const map = L.map("map", {
+    maxBounds: [
+      [51.756338, 19.464765], // Southwest coordinates (south, west)
+      [51.743076, 19.447256], // Southwest coordinates (south, west)
+    ],
+    minZoom: 15.4, // Set the minimum zoom level
+  }).setView([51.749229, 19.453483], 15);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; OpenStreetMap contributors',
-      }).addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "Map data &copy; OpenStreetMap contributors",
+  }).addTo(map);
 
+  var popup = L.popup();
 
-    var popup = L.popup();
-
-    function onMapClick(e) {
-
-        console.log("[",e.latlng["lat"],",",e.latlng["lng"],"]")
-    }
-
-    map.on('click', onMapClick);
-
-    var marker = L.marker([51.752511, 19.452952]).addTo(map);
-
-
-
-    var mechaniczny_v1 = L.polygon([
-        [51.752375, 19.451704],
-        [51.752844, 19.451589],
-        [51.752928, 19.45245],
-        [51.75245, 19.45256]
-    ]).addTo(map);
-
-    var mechaniczny_v2 = L.polygon([
-        [51.753177, 19.451519],
-        [51.753513, 19.451439],
-        [51.753594, 19.452292],
-        [51.753259, 19.45237]
-    ]).addTo(map);
-
-    mechaniczny_v1.setStyle({
-        fillColor: 'blue',
-        color: 'blue',
-        weight: 3,
-      });
-
-    mechaniczny_v2.setStyle({
-        fillColor: 'blue',
-        color: 'blue',
-        weight: 3,
-      });
-
-    //
-    // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
-    //to jest Json w ktorym sa dane na temat budynkow
-    let bulidingsData = '{"buildings":[' +
-        '{"name":"Mechaniczny","addres":"Stefanowskiego 18","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-        '{"name":"Mechaniczny2","addres":"Mechaniczny addres234567" },' +
-        '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
-//to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
-    //na podstawie przekazanej nazwy zasysa dane z JSONA bulidingsData
-    //
-    function addBuilindEvent(name) {
-        var elemDiv = document.createElement('div');
-        elemDiv.id="floating-info-box"
-
-        var blur = document.createElement('div');
-        blur.id="blur"
-        // blur.style.height=screen.height+"px"
-
-        var closeBtn = document.createElement('button');
-        closeBtn.id="close-floating-info-box"
-        // closeBtn.append("X")
-        closeBtn.addEventListener("click",() => {
-            document.getElementById("floating-info-box").remove()
-            document.getElementById("blur").remove()
-        },"false")
-
-        blur.addEventListener("click",() => {
-            document.getElementById("floating-info-box").remove()
-            document.getElementById("blur").remove()
-        },"false")
-
-        elemDiv.append(closeBtn)
-
-        const obj = JSON.parse(bulidingsData);
-
-
-        var infoCode = document.createElement('span');
-        infoCode.classList.add("info-box")
-        infoCode.append("KOD BUDYNKU: "+obj.buildings.filter(function(item) { return item.code === name; })[0]['code'])
-        elemDiv.append(infoCode)
-
-        var info1 = document.createElement('span');
-        info1.classList.add("info-box")
-        info1.append("NAZWA: "+obj.buildings.filter(function(item) { return item.code === name; })[0]['name'])
-        elemDiv.append(info1)
-
-        var found = obj.buildings.filter(function(item) { return item.code === name; })[0]['addres']
-
-        var info2 = document.createElement('span');
-        info2.classList.add("info-box")
-        info2.append("ADRES: "+found)
-        elemDiv.append(info2)
-
-        var qr = document.createElement("img");
-        qr.src = obj.buildings.filter(function(item) { return item.code === name; })[0]['QRSrc']
-        qr.id="qrImage"
-        elemDiv.append(qr)
-
-        var image = document.createElement("img");
-        image.src = obj.buildings.filter(function(item) { return item.code === name; })[0]['imgSrc']
-        image.id="bdImage"
-        elemDiv.append(image)
-
-
-
-
-        document.body.appendChild(elemDiv);
-        document.body.appendChild(blur);
-
-
-
-    }
-
-    //przypisanie do danego budynku funkcji od okienka jako argument kod budynku :))
-    //WAZNE nazwa w argumencie musi znajdowac sie w jsonie inaczej kraksa
-    mechaniczny_v1.addEventListener("click",()=>addBuilindEvent("A10"),false)
-
-      // mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
-
-    var chemiczny_v1 = L.polygon([
-        [51.752476, 19.450693],
-        [51.7523, 19.450731],
-        [51.752244, 19.450001],
-        [51.75241, 19.449947],
-        [51.752416, 19.449964],
-        [51.753187, 19.449797],
-        [51.753193, 19.449781],
-        [51.75336, 19.449749],
-        [51.753423, 19.450495],
-        [51.75325, 19.450527],
-        [51.75321, 19.450049],
-        [51.753157, 19.450071],
-        [51.753163, 19.450098],
-        [51.752489, 19.450243],
-        [51.752489, 19.450205],
-        [51.752439, 19.450221]
-    ]).addTo(map);
-
-    chemiczny_v1.setStyle({
-        fillColor: 'red',
-        color: 'red',
-        weight: 3,
-      });
-
-    // chemiczny_v1.bindPopup("WYDZIAŁ CHEMICZNY\nBUDYNEK A33");
-
+  function onMapClick(e) {
+    console.log("[", e.latlng["lat"], ",", e.latlng["lng"], "]");
   }
 
+  map.on("click", onMapClick);
 
-  document.addEventListener('DOMContentLoaded', initMap);
+  var marker = L.marker([51.752511, 19.452952]).addTo(map);
 
+  var mechaniczny_v1 = L.polygon([
+    [51.752375, 19.451704],
+    [51.752844, 19.451589],
+    [51.752928, 19.45245],
+    [51.75245, 19.45256],
+  ]).addTo(map);
+
+  var mechaniczny_v2 = L.polygon([
+    [51.753177, 19.451519],
+    [51.753513, 19.451439],
+    [51.753594, 19.452292],
+    [51.753259, 19.45237],
+  ]).addTo(map);
+
+  //Kampus B
+
+  var rektorat_willa_B1 = L.polygon([
+    [51.748790052124164, 19.45516705513001],
+    [51.748693715354975, 19.455183148384098],
+    [51.748693715354975, 19.455204606056217],
+    [51.748594056412024, 19.455236792564396],
+    [51.748623954117996, 19.455531835556034],
+    [51.748667139658345, 19.455510377883915],
+    [51.74870035927666, 19.45555865764618],
+    [51.748756832571765, 19.455553293228153],
+    [51.74876347648419, 19.455510377883915],
+    [51.748803339938256, 19.455499649047855],
+    [51.748790052124164, 19.455172419548038],
+  ]).addTo(map);
+
+  var dzial_jakosci_willa_B2 = L.polygon([
+    [51.7489828775895, 19.454453587532047],
+    [51.748793526622045, 19.454496502876285],
+    [51.748810136387796, 19.454694986343384],
+    [51.7489430142939, 19.454673528671268],
+    [51.74899284340791, 19.454995393753055],
+    [51.749029384723244, 19.454979300498966],
+  ]).addTo(map);
+
+  var dzial_wspolpracy_willa_B3 = L.polygon([
+    [51.74866402999927, 19.45290327072144],
+    [51.74862416642229, 19.45291936397553],
+    [51.74860755658814, 19.45288181304932],
+    [51.748541117190534, 19.45290327072144],
+    [51.74852782929929, 19.452935457229618],
+    [51.748491287578226, 19.452951550483704],
+    [51.748504575480204, 19.453235864639286],
+    [51.74856104902008, 19.453230500221256],
+    [51.74856104902008, 19.453246593475345],
+    [51.74862748838837, 19.453251957893375],
+    [51.74863081035421, 19.453203678131104],
+    [51.74867399588801, 19.453192949295047],
+    [51.74867731785046, 19.45309638977051],
+    [51.748703893541084, 19.45309638977051],
+    [51.748703893541084, 19.45303738117218],
+    [51.74867731785046, 19.453021287918094],
+  ]).addTo(map);
+
+  var budowniczy_B7 = L.polygon([
+    [51.74786011244874, 19.45135295391083],
+    [51.747959773010976, 19.4524097442627],
+    [51.74784682435715, 19.452447295188907],
+    [51.74785014638041, 19.45263504981995],
+    [51.747511298749394, 19.452720880508426],
+    [51.74748472235711, 19.452538490295414],
+    [51.74736845045704, 19.452554583549503],
+    [51.74727211065596, 19.451487064361576],
+    [51.747375094573655, 19.451454877853397],
+    [51.74737177251546, 19.4513475894928],
+    [51.74773387542091, 19.451245665550235],
+    [51.74775712963679, 19.45138514041901],
+  ]).addTo(map);
+
+  var architektury_B6 = L.polygon([
+    [51.74787673671156, 19.45286571979523],
+    [51.74789334681443, 19.45310175418854],
+    [51.747534567233764, 19.453187584877018],
+    [51.74751795699897, 19.452951550483704],
+  ]).addTo(map);
+
+  var bioprocesowe_B5 = L.polygon([
+    [51.748052812927, 19.455252885818485],
+    [51.7478634580608, 19.45529580116272],
+    [51.747903322309135, 19.455644488334656],
+    [51.74796976264482, 19.45563912391663],
+    [51.74796644063034, 19.455499649047855],
+    [51.748076066978676, 19.455472826957703],
+  ]).addTo(map);
+
+  var ochrony_srodowiska_B4 = L.polygon([
+    [51.747982921743215, 19.45566058158875],
+    [51.74789322729305, 19.45567131042481],
+    [51.74789322729305, 19.455741047859192],
+    [51.74791315940846, 19.455741047859192],
+    [51.74793973554869, 19.455982446670536],
+    [51.747982921743215, 19.455977082252506],
+    [51.747982921743215, 19.45600390434265],
+    [51.74806597200119, 19.455987811088566],
+    [51.74806597200119, 19.455960988998417],
+    [51.74811580208273, 19.455944895744327],
+    [51.74811580208273, 19.455918073654175],
+    [51.74813905610194, 19.455918073654175],
+    [51.74813241209768, 19.45584297180176],
+    [51.74812909009518, 19.455816149711612],
+    [51.74811580208273, 19.455682039260868],
+    [51.74804603995321, 19.455692768096927],
+    [51.74803939593526, 19.45566058158875],
+  ]).addTo(map);
+
+  var lodex_B9 = L.polygon([
+    [51.74705630404604, 19.452763795852665],
+    [51.74722905195471, 19.452736973762516],
+    [51.74741176537, 19.45488810539246],
+    [51.747239018160066, 19.454925656318668],
+    [51.74713271185635, 19.453777670860294],
+    [51.74704301571799, 19.453793764114383],
+    [51.74698321819347, 19.453257322311405],
+    [51.74703969363537, 19.453235864639286],
+    [51.74705630404604, 19.453364610672],
+    [51.74709616900669, 19.45335388183594],
+    [51.74705298196439, 19.452790617942814],
+  ]).addTo(map);
+
+  var lodex_B10 = L.polygon([
+    [51.74736521961308, 19.455059766769413],
+    [51.74722237085878, 19.45509195327759],
+    [51.747265557739105, 19.455687403678898],
+    [51.74741505046764, 19.45566058158875],
+  ]).addTo(map);
+
+  var dziekanat_B11 = L.polygon([
+    [51.747408386698524, 19.45584297180176],
+    [51.74735523377724, 19.45584297180176],
+    [51.74735855583666, 19.45586442947388],
+    [51.74727882634328, 19.455912709236145],
+    [51.74730540285673, 19.45611119270325],
+    [51.74743828518928, 19.456089735031128],
+  ]).addTo(map);
+
+  var centrum_sportu_B28 = L.polygon([
+    [51.74711300035767, 19.45091307163239],
+    [51.74719937428618, 19.4519054889679],
+    [51.745667873595785, 19.4522488117218],
+    [51.74559810768578, 19.451229572296146],
+  ]).addTo(map);
+
+  var wydawnictwo_B16 = L.polygon([
+    [51.746448498221156, 19.452994465827945],
+    [51.746332223653894, 19.453015923500065],
+    [51.746368767121574, 19.453541636466984],
+    [51.746485041594795, 19.453504085540775],
+  ]).addTo(map);
+
+  var instytut_fizyki_B15 = L.polygon([
+    [51.7470564565959, 19.454727172851566],
+    [51.74642525669959, 19.45492029190064],
+    [51.746534886788154, 19.45611655712128],
+    [51.74664119449874, 19.456089735031128],
+    [51.74662790604859, 19.45585906505585],
+    [51.746896996402064, 19.455800056457523],
+    [51.74689035221511, 19.455644488334656],
+    [51.74712622025369, 19.45559084415436],
+  ]).addTo(map);
+
+  var instytut_fizyki_B14 = L.polygon([
+    [51.74667434798122, 19.45411562919617],
+    [51.74642518907346, 19.454174637794498],
+    [51.74646173246593, 19.454764723777775],
+    [51.746481665213004, 19.454764723777775],
+    [51.74649163158323, 19.45491492748261],
+    [51.746760722748455, 19.454807639122013],
+  ]).addTo(map);
+
+  var instytut_maszyn_przeplywowych_B13 = L.polygon([
+    [51.74700657344732, 19.45414781570435],
+    [51.7467939594957, 19.454180002212528],
+    [51.74682385839311, 19.454539418220524],
+    [51.746734161641484, 19.454560875892643],
+    [51.74675409426836, 19.454818367958072],
+    [51.747059726778865, 19.454732537269596],
+  ]).addTo(map);
+
+  var poradnia_lekarska_B12 = L.polygon([
+    [51.747096284598484, 19.45465207099915],
+    [51.74705641963796, 19.45465743541718],
+    [51.747149437824454, 19.455746412277225],
+    [51.74718265855895, 19.455730319023136],
+    [51.747185980631066, 19.45560693740845],
+    [51.74720259098789, 19.45559084415436],
+    [51.74719926891702, 19.455462098121647],
+    [51.74718265855895, 19.455467462539676],
+    [51.747096284598484, 19.45466816425324],
+  ]).addTo(map);
+
+  var CTI_B19 = L.polygon([
+    [51.74713287541469, 19.455580115318302],
+    [51.746893685317495, 19.4556337594986],
+    [51.74693355042165, 19.45612192153931],
+    [51.74716277408778, 19.456068277359012],
+  ]).addTo(map);
+
+  var biblioteka_B22 = L.polygon([
+    [51.745614727222424, 19.453240984803415],
+    [51.74543532873941, 19.453257078057504],
+    [51.74557153876383, 19.454882496720533],
+    [51.74573764799392, 19.454844945794324],
+  ]).addTo(map);
+
+  var centrum_jezykowe_B25 = L.polygon([
+    [51.74557173226382, 19.451256394386295],
+    [51.74519300093703, 19.451315402984623],
+    [51.74520628980928, 19.45141732692719],
+    [51.7455750544544, 19.451336860656742],
+  ]).addTo(map);
+
+  var Centrum_jezykowe_B24 = L.polygon([
+    [51.745445357517646, 19.451374411582947],
+    [51.74544867971751, 19.451481699943546],
+    [51.74554502340736, 19.451465606689453],
+    [51.74564468907719, 19.452533125877384],
+    [51.745378913469025, 19.452592134475708],
+    [51.745282569424916, 19.4515460729599],
+    [51.7454054911002, 19.451503157615665],
+    [51.74538555787828, 19.45139586925507],
+  ]).addTo(map);
+
+  var centrum_papiernictwa_B17 = L.polygon([
+    [51.74631911046943, 19.454544782638553],
+    [51.74589055292711, 19.45463061332703],
+    [51.74590716376031, 19.454866647720337],
+    [51.74594702973505, 19.454866647720337],
+    [51.745976929193, 19.45511341094971],
+    [51.74608988252226, 19.455081224441532],
+    [51.74606994960235, 19.45483982563019],
+    [51.74633572114505, 19.454764723777775],
+  ]).addTo(map);
+
+  var warsztat_samochodowy_B21 = L.polygon([
+    [51.74563812727429, 19.455462098121647],
+    [51.74557832789008, 19.455483555793766],
+    [51.74560490540396, 19.455773234367374],
+    [51.745671349120194, 19.455751776695255],
+  ]).addTo(map);
+  var dmcs_B18 = L.polygon([
+    [51.74617294412424, 19.455081224441532],
+    [51.74595700408681, 19.45511877536774],
+    [51.74605002453718, 19.456191658973697],
+    [51.74607660177353, 19.456186294555668],
+    [51.746086568233146, 19.456223845481876],
+    [51.74623938700501, 19.456186294555668],
+    [51.74623938700501, 19.45615947246552],
+    [51.746272608408766, 19.45614874362946],
+    [51.74616962197765, 19.455075860023502],
+  ]).addTo(map);
+
+  var portiernia_B20 = L.polygon([
+    [51.74589390183046, 19.456690549850467],
+    [51.74579755888466, 19.456706643104557],
+    [51.74580420323234, 19.456808567047123],
+    [51.74589390183046, 19.456787109375],
+  ]).addTo(map);
+
+  var portiernia_B23 = L.polygon([
+    [51.74475108079913, 19.45399761199951],
+    [51.744711213769016, 19.45399761199951],
+    [51.74472450278294, 19.45411026477814],
+    [51.744754403050074, 19.45409417152405],
+  ]).addTo(map);
+
+  mechaniczny_v1.setStyle({
+    fillColor: "blue",
+    color: "blue",
+    weight: 3,
+  });
+
+  mechaniczny_v2.setStyle({
+    fillColor: "blue",
+    color: "blue",
+    weight: 3,
+  });
+
+  //
+  // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
+  //to jest Json w ktorym sa dane na temat budynkow
+  let bulidingsData =
+    '{"buildings":[' +
+    '{"name":"Mechaniczny","addres":"Stefanowskiego 18","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Mechaniczny2","addres":"Mechaniczny addres234567" },' +
+    '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
+  //to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
+  //na podstawie przekazanej nazwy zasysa dane z JSONA bulidingsData
+  //
+  function addBuilindEvent(name) {
+    var elemDiv = document.createElement("div");
+    elemDiv.id = "floating-info-box";
+
+    var blur = document.createElement("div");
+    blur.id = "blur";
+    // blur.style.height=screen.height+"px"
+
+    var closeBtn = document.createElement("button");
+    closeBtn.id = "close-floating-info-box";
+    // closeBtn.append("X")
+    closeBtn.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+    );
+
+    blur.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+    );
+
+    elemDiv.append(closeBtn);
+
+    const obj = JSON.parse(bulidingsData);
+
+    var infoCode = document.createElement("span");
+    infoCode.classList.add("info-box");
+    infoCode.append(
+      "KOD BUDYNKU: " +
+        obj.buildings.filter(function (item) {
+          return item.code === name;
+        })[0]["code"]
+    );
+    elemDiv.append(infoCode);
+
+    var info1 = document.createElement("span");
+    info1.classList.add("info-box");
+    info1.append(
+      "NAZWA: " +
+        obj.buildings.filter(function (item) {
+          return item.code === name;
+        })[0]["name"]
+    );
+    elemDiv.append(info1);
+
+    var found = obj.buildings.filter(function (item) {
+      return item.code === name;
+    })[0]["addres"];
+
+    var info2 = document.createElement("span");
+    info2.classList.add("info-box");
+    info2.append("ADRES: " + found);
+    elemDiv.append(info2);
+
+    var qr = document.createElement("img");
+    qr.src = obj.buildings.filter(function (item) {
+      return item.code === name;
+    })[0]["QRSrc"];
+    qr.id = "qrImage";
+    elemDiv.append(qr);
+
+    var image = document.createElement("img");
+    image.src = obj.buildings.filter(function (item) {
+      return item.code === name;
+    })[0]["imgSrc"];
+    image.id = "bdImage";
+    elemDiv.append(image);
+
+    document.body.appendChild(elemDiv);
+    document.body.appendChild(blur);
+  }
+
+  //przypisanie do danego budynku funkcji od okienka jako argument kod budynku :))
+  //WAZNE nazwa w argumencie musi znajdowac sie w jsonie inaczej kraksa
+  mechaniczny_v1.addEventListener("click", () => addBuilindEvent("A10"), false);
+
+  // mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
+
+  var chemiczny_v1 = L.polygon([
+    [51.752476, 19.450693],
+    [51.7523, 19.450731],
+    [51.752244, 19.450001],
+    [51.75241, 19.449947],
+    [51.752416, 19.449964],
+    [51.753187, 19.449797],
+    [51.753193, 19.449781],
+    [51.75336, 19.449749],
+    [51.753423, 19.450495],
+    [51.75325, 19.450527],
+    [51.75321, 19.450049],
+    [51.753157, 19.450071],
+    [51.753163, 19.450098],
+    [51.752489, 19.450243],
+    [51.752489, 19.450205],
+    [51.752439, 19.450221],
+  ]).addTo(map);
+
+  chemiczny_v1.setStyle({
+    fillColor: "red",
+    color: "red",
+    weight: 3,
+  });
+
+  // chemiczny_v1.bindPopup("WYDZIAŁ CHEMICZNY\nBUDYNEK A33");
+}
+
+document.addEventListener("DOMContentLoaded", initMap);
