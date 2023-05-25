@@ -58,7 +58,7 @@ function initMap() {
     // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
     //to jest Json w ktorym sa dane na temat budynkow
     let bulidingsData = '{"buildings":[' +
-        '{"name":"Mechaniczny","addres":"Stefanowskiego 18","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+        '{"name":"Mechaniczny","addres":"Żeromskiego 116, 90-924 Łódź","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
         '{"name":"Mechaniczny2","addres":"Mechaniczny addres234567" },' +
         '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
 //to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
