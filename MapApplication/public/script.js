@@ -1,19 +1,194 @@
 let MECHANICZNY,
-  EEIA,
-  CHEMICZNY,
-  TMIWT,
-  BINOZ,
-  BAIIS,
-  FTIMS,
-  ZIP,
-  IPOS,
-  ADMINISTRACJA,
-  OGOLNOUCZELNIANE,
-  POZAWYDZIALOWE,
-  POZOSTAŁE;
+    EEIA,
+    CHEMICZNY,
+    TMIWT,
+    BINOZ,
+    BAIIS,
+    FTIMS,
+    ZIP,
+    IPOS,
+    ADMINISTRACJA,
+    OGOLNOUCZELNIANE,
+    POZAWYDZIALOWE,
+    POZOSTALE;
+let map;
+const polygons = new Map();
+
+//to jest Json w ktorym sa dane na temat budynkow
+let bulidingsData =
+    '{"buildings":[' +
+    '{"name":"Wydział Chemiczny","addres":"Żeromskiego 114","code":"A18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A17","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Technologii Materiałowych i Wzornictwa Tekstyliów","addres":"Żwirki 36","code":"A16","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Stefanowskiego 1/15","code":"A18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"n/a","code":"A24","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny","addres":"n/a","code":"A26","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny","addres":"ul. Żeromskiego 114","code":"A34","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny","addres":"Żeromskiego 116","code":"A27","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Żeromskiego 116","code":"A19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Żeromskiego 116","code":"A20","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Stefanowskiego 1/15","code":"A22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"n/a","code":"A33","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A30","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Stefanowskiego 2","code":"A1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Biotechnologii i Nauk o Żywności","addres":"Stefanowskiego 4/10","code":"A2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Biotechnologii i Nauk o Żywności","addres":"Stefanowskiego 4/10","code":"A3","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Biotechnologii i Nauk o Żywności","addres":"Stefanowskiego 4/10","code":"A4","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 175","code":"A5","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"n/a","code":"A6","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny Instytut Technologii Polimerów i Barwników","addres":"Stefanowskiego 12/16","code":"A8","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny Instytut Technologii Polimerów i Barwników","addres":"Stefanowskiego 12/16","code":"A9","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Stefanowskiego 18/22","code":"A12_A","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"ul. Żeromskiego 116,","code":"A12_B","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Stefanowskiego 18/22","code":"A11","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 175","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Radwańska 29","code":"A13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 181","code":"A15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Willa Reinholda Richtera","addres":"Ks. I. Skorupki 6/8","code":"B1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Dział Jakości PŁ","addres":"Ks. I. Skorupki 6/8","code":"B2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Willa Józefa Richtera","addres":"Ks. I. Skorupki 10/12","code":"B3","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Wólczańska 213","code":"B4","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Wólczańska 213","code":"B5","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Budownictwa, Architektury i Inżynierii Środowiska","addres":"Politechniki 6","code":"B6","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Budownictwa, Architektury i Inżynierii Środowiska","addres":"n/a","code":"B7","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Fizyki Technicznej, Informatyki i Matematyki Stosowanej","addres":"Wólczańska 215","code":"B11","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Wólczańska 213","code":"B10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 215","code":"B9","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"B28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Politechniki 12","code":"B25","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 223","code":"B22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 237","code":"B21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska","code":"B20","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 221","code":"B18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 223","code":"B17","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Fizyki Technicznej, Informatyki i Matematyki Stosowanej","addres":"Wólczańska 219/223","code":"B14","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Fizyki Technicznej, Informatyki i Matematyki Stosowanej","addres":"Stefanowskiego 1/15","code":"B15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Wólczańska 219/223","code":"B13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 215","code":"B12","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Wólczańska 217/221","code":"B19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" }' +
+    ']}';
+
+
+let clickedPolygon;
+let clickedPolygonColor;
+let clickedPolygonFillColor;
+let clickedPolygonThickness;
+
+
+function addBuilindEvent(code) {
+  var elemDiv = document.createElement("div");
+  elemDiv.id = "floating-info-box";
+
+  var blur = document.createElement("div");
+  blur.id = "blur";
+  // blur.style.height=screen.height+"px"
+
+  var closeBtn = document.createElement("button");
+  closeBtn.id = "close-floating-info-box";
+  // closeBtn.append("X")
+  closeBtn.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  blur.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  elemDiv.append(closeBtn);
+
+  const obj = JSON.parse(bulidingsData);
+
+  var infoCode = document.createElement("span");
+  infoCode.classList.add("info-box");
+  infoCode.append(
+      "KOD BUDYNKU: " +
+      obj.buildings.filter(function (item) {
+        return item.code === code;
+      })[0]["code"]
+  );
+  elemDiv.append(infoCode);
+
+  var info1 = document.createElement("span");
+  info1.classList.add("info-box");
+  info1.append(
+      "NAZWA: " +
+      obj.buildings.filter(function (item) {
+        return item.code === code;
+      })[0]["name"]
+  );
+  elemDiv.append(info1);
+
+  var found = obj.buildings.filter(function (item) {
+    return item.code === code;
+  })[0]["addres"];
+
+  var info2 = document.createElement("span");
+  info2.classList.add("info-box");
+  info2.append("ADRES: " + found);
+  elemDiv.append(info2);
+
+  var imageDescription = document.createElement("span");
+  imageDescription.classList.add("image-descriptiono-box");
+  imageDescription.append("Zdjęcie budynku");
+  elemDiv.append(imageDescription);
+
+  var QrDescription = document.createElement("span");
+  QrDescription.classList.add("QR-descriptiono-box");
+  QrDescription.append("kod QR do strony wydziału");
+  elemDiv.append(QrDescription);
+
+
+  var qr = document.createElement("img");
+  qr.src="images/"+code+"QR.png"
+  qr.id = "qrImage";
+  elemDiv.append(qr);
+
+
+
+  var image = document.createElement("img");
+  image.src="images/"+code+"img.jpg"
+  image.id = "bdImage";
+  elemDiv.append(image);
+  if(clickedPolygon)
+  {
+    clickedPolygon.setStyle({
+      fillColor: clickedPolygonFillColor,
+      color: clickedPolygonColor,
+      weight: clickedPolygonThickness,
+    });
+  }
+  clickedPolygonFillColor=polygons.get(code).options.fillColor
+  clickedPolygonThickness=polygons.get(code).options.weight
+  clickedPolygonColor=polygons.get(code).options.color
+  clickedPolygon=polygons.get(code)
+
+  map.fitBounds(polygons.get(code).getBounds())
+  map.panTo(polygons.get(code).getCenter())
+  polygons.get(code).setStyle({
+    fillColor: "red",
+    color: "lightgreen",
+    weight: 10,
+  });
+
+  document.body.appendChild(elemDiv);
+  document.body.appendChild(blur);
+}
+
 
 function initMap() {
-  const map = L.map("map", {
+   map = L.map("map", {
     maxBounds: [
       [51.756338, 19.464765], // Southwest coordinates (south, west)
       [51.743076, 19.447256], // Southwest coordinates (south, west)
@@ -116,7 +291,7 @@ function initMap() {
     [51.75258547723839, 19.451433420181278],
     [51.7526319957138, 19.451428055763248],
   ]).addTo(map);
-
+  
   var A16 = L.polygon([
     [51.75518855514744, 19.450860619581366],
     [51.75500581406354, 19.450903534925605],
@@ -227,20 +402,21 @@ function initMap() {
     [51.75365873319528, 19.453691840171818],
   ]).addTo(map);
 
-  var A8 = L.polygon([
-    [51.7535386329497, 19.452978372573856],
-    [51.75352534222843, 19.452753067016605],
-    [51.753193072925534, 19.452812075614933],
-    [51.7532196545597, 19.453058838844303],
-    [51.753392434800595, 19.453010559082035],
-    [51.753405725561, 19.45312857627869],
-    [51.75362502254259, 19.453074932098392],
-    [51.753631667889046, 19.452951550483704],
-    [51.75358515044333, 19.452967643737797],
-    [51.75359179579566, 19.453010559082035],
-    [51.75355856902424, 19.453010559082035],
-    [51.7535386329497, 19.452978372573856],
-  ]).addTo(map);
+  var A8 =
+    L.polygon([
+      [51.7535386329497, 19.452978372573856],
+      [51.75352534222843, 19.452753067016605],
+      [51.753193072925534, 19.452812075614933],
+      [51.7532196545597, 19.453058838844303],
+      [51.753392434800595, 19.453010559082035],
+      [51.753405725561, 19.45312857627869],
+      [51.75362502254259, 19.453074932098392],
+      [51.753631667889046, 19.452951550483704],
+      [51.75358515044333, 19.452967643737797],
+      [51.75359179579566, 19.453010559082035],
+      [51.75355856902424, 19.453010559082035],
+      [51.7535386329497, 19.452978372573856],
+    ]).addTo(map);
 
   var A10 = L.polygon([
     [51.75302397759252, 19.453750848770145],
@@ -383,78 +559,84 @@ function initMap() {
     [51.753259, 19.45237],
   ]).addTo(map);
 
+
   var A33 = L.polygon([
-    [51.7522435848091, 19.449985680055377],
-    [51.752303361217564, 19.45071504257092],
-    [51.75246807801751, 19.450693145933457],
-    [51.75244151083153, 19.45022120548222],
-    [51.752488003396735, 19.45021584252254],
-    [51.75249464518786, 19.450237294361248],
-    [51.753158819367734, 19.450103220369417],
-    [51.753165461060235, 19.450065679651683],
-    [51.753208632037484, 19.450060316692007],
-    [51.753251802973516, 19.450521531223934],
-    [51.7534211654778, 19.450494716425553],
-    [51.753361390548804, 19.4497439020713],
-    [51.75318538613179, 19.44978680574871],
-    [51.75319202782035, 19.449808257587378],
-    [51.75241826453096, 19.44996378341791],
-    [51.75241826453096, 19.449947694538885],
-    [51.752245577352255, 19.449990455297336],
-    [51.752305353758075, 19.450725180772558],
+    [ 51.7522435848091 , 19.449985680055377 ],
+    [ 51.752303361217564 , 19.45071504257092 ],
+    [ 51.75246807801751 , 19.450693145933457 ],
+    [ 51.75244151083153 , 19.45022120548222 ],
+    [ 51.752488003396735 , 19.45021584252254 ],
+    [ 51.75249464518786 , 19.450237294361248 ],
+    [ 51.753158819367734 , 19.450103220369417 ],
+    [ 51.753165461060235 , 19.450065679651683 ],
+    [ 51.753208632037484 , 19.450060316692007 ],
+    [ 51.753251802973516 , 19.450521531223934 ],
+    [ 51.7534211654778 , 19.450494716425553 ],
+    [ 51.753361390548804 , 19.4497439020713 ],
+    [ 51.75318538613179 , 19.44978680574871 ],
+    [ 51.75319202782035 , 19.449808257587378 ],
+    [ 51.75241826453096 , 19.44996378341791 ],
+    [ 51.75241826453096 , 19.449947694538885 ],
+    [ 51.752245577352255 , 19.449990455297336 ],
+    [ 51.752305353758075 , 19.450725180772558 ]
   ]).addTo(map);
+
+  
+
 
   //Kampus B
 
   var B1 = L.polygon([
-    [51.748617762401544, 19.45551924542737],
-    [51.74866762242555, 19.45550845941369],
-    [51.74867094965156, 19.455529899492685],
-    [51.74870089467447, 19.455572779650666],
-    [51.74874404572165, 19.455567406436074],
-    [51.74877731791429, 19.455513806238596],
-    [51.74879395400142, 19.455513806238596],
-    [51.74881059008242, 19.45548164612011],
-    [51.74878729956731, 19.455170764974596],
-    [51.748687482937925, 19.455192205053592],
-    [51.74868079219168, 19.455229562455482],
-    [51.74859095702337, 19.45524564251473],
+    [ 51.748617762401544 , 19.45551924542737 ],
+    [ 51.74866762242555 , 19.45550845941369 ],
+    [ 51.74867094965156 , 19.455529899492685 ],
+    [ 51.74870089467447 , 19.455572779650666 ],
+    [ 51.74874404572165 , 19.455567406436074 ], 
+    [ 51.74877731791429 , 19.455513806238596 ], 
+    [ 51.74879395400142 , 19.455513806238596 ], 
+    [ 51.74881059008242 , 19.45548164612011 ], 
+    [ 51.74878729956731 , 19.455170764974596 ], 
+    [ 51.748687482937925 , 19.455192205053592 ], 
+    [ 51.74868079219168 , 19.455229562455482 ], 
+    [ 51.74859095702337 , 19.45524564251473 ]
   ]).addTo(map);
 
+
+  
   var B2 = L.polygon([
-    [51.74879075664692, 19.45450580869572],
-    [51.74880732303747, 19.454698947206225],
-    [51.7488835283557, 19.45468285233035],
-    [51.748886841627474, 19.45467212241312],
-    [51.74894979374529, 19.454661392495844],
-    [51.74897961313891, 19.454994019930677],
-    [51.74902931208449, 19.454983290013402],
-    [51.74898623966813, 19.45446825398534],
-    [51.74879075664692, 19.454500443737082],
+    [ 51.74879075664692 , 19.45450580869572 ],
+    [ 51.74880732303747 , 19.454698947206225 ], 
+    [ 51.7488835283557 , 19.45468285233035 ], 
+    [ 51.748886841627474 , 19.45467212241312 ], 
+    [ 51.74894979374529 , 19.454661392495844 ], 
+    [ 51.74897961313891 , 19.454994019930677 ], 
+    [ 51.74902931208449 , 19.454983290013402 ], 
+    [ 51.74898623966813 , 19.45446825398534 ], 
+    [ 51.74879075664692 , 19.454500443737082 ]
   ]).addTo(map);
 
   var B3 = L.polygon([
-    [51.74847885420959, 19.452962206716162],
-    [51.748498734014795, 19.453241184564707],
-    [51.74855837337784, 19.45323045464747],
-    [51.74856168667348, 19.453262644399217],
-    [51.748627952535244, 19.453251914481978],
-    [51.748627952535244, 19.4532143597716],
-    [51.7486842784413, 19.453198264895686],
-    [51.74867765186776, 19.45309096572318],
-    [51.748707471441016, 19.453080235805942],
-    [51.74870084487088, 19.453021221261054],
-    [51.748674338580614, 19.453026586219693],
-    [51.74866108542966, 19.452919287047145],
-    [51.74861801266216, 19.45293001696442],
-    [51.74861138607892, 19.452913922088545],
-    [51.74860144620221, 19.452913922088545],
-    [51.748598132909464, 19.452897827212634],
-    [51.748531867004, 19.452913922088545],
-    [51.748531867004, 19.45293001696442],
-    [51.748525240408085, 19.45294074688165],
-    [51.74852192710977, 19.452951476798926],
-    [51.74847885420959, 19.4529675716748],
+    [ 51.74847885420959 , 19.452962206716162 ], 
+    [ 51.748498734014795 , 19.453241184564707 ], 
+    [ 51.74855837337784 , 19.45323045464747 ], 
+    [ 51.74856168667348 , 19.453262644399217 ], 
+    [ 51.748627952535244 , 19.453251914481978 ], 
+    [ 51.748627952535244 , 19.4532143597716 ], 
+    [ 51.7486842784413 , 19.453198264895686 ], 
+    [ 51.74867765186776 , 19.45309096572318 ], 
+    [ 51.748707471441016 , 19.453080235805942 ], 
+    [ 51.74870084487088 , 19.453021221261054 ], 
+    [ 51.748674338580614 , 19.453026586219693 ], 
+    [ 51.74866108542966 , 19.452919287047145 ], 
+    [ 51.74861801266216 , 19.45293001696442 ], 
+    [ 51.74861138607892 , 19.452913922088545 ], 
+    [ 51.74860144620221 , 19.452913922088545 ], 
+    [ 51.748598132909464 , 19.452897827212634 ], 
+    [ 51.748531867004 , 19.452913922088545 ], 
+    [ 51.748531867004 , 19.45293001696442 ], 
+    [ 51.748525240408085 , 19.45294074688165 ], 
+    [ 51.74852192710977 , 19.452951476798926 ],
+    [ 51.74847885420959 , 19.4529675716748 ]
   ]).addTo(map);
 
   var B7 = L.polygon([
@@ -480,42 +662,43 @@ function initMap() {
   ]).addTo(map);
 
   var B5 = L.polygon([
-    [51.747858437400275, 19.455308639647676],
-    [51.74787504357826, 19.455528602951325],
-    [51.74794146822906, 19.455512508075454],
-    [51.74794146822906, 19.455555427744475],
-    [51.747891649750116, 19.45557152262035],
-    [51.74789829221717, 19.455657361958384],
-    [51.74798132297268, 19.455635902123877],
-    [51.747978001745395, 19.455555427744475],
-    [51.74796803806205, 19.455555427744475],
-    [51.7479647168338, 19.455501778158222],
-    [51.74808095967785, 19.455480318323712],
-    [51.748061032354386, 19.455265719978698],
-    [51.747858437400275, 19.455314004606315],
+    [ 51.747858437400275 , 19.455308639647676 ], 
+    [ 51.74787504357826 , 19.455528602951325 ], 
+    [ 51.74794146822906 , 19.455512508075454 ], 
+    [ 51.74794146822906 , 19.455555427744475 ], 
+    [ 51.747891649750116 , 19.45557152262035 ], 
+    [ 51.74789829221717 , 19.455657361958384 ], 
+    [ 51.74798132297268 , 19.455635902123877 ], 
+    [ 51.747978001745395 , 19.455555427744475 ], 
+    [ 51.74796803806205 , 19.455555427744475 ], 
+    [ 51.7479647168338 , 19.455501778158222 ], 
+    [ 51.74808095967785 , 19.455480318323712 ], 
+    [ 51.748061032354386 , 19.455265719978698 ], 
+    [ 51.747858437400275 , 19.455314004606315 ]
   ]).addTo(map);
 
   var B4 = L.polygon([
-    [51.747942132464956, 19.45599424291228],
-    [51.747988629661705, 19.45598887795364],
-    [51.74799394366962, 19.456011410681644],
-    [51.748070331808556, 19.455995315805733],
-    [51.748070331808556, 19.455968491012626],
-    [51.74811682887338, 19.455957761095352],
-    [51.74811682887338, 19.455936301260884],
-    [51.74814671981834, 19.455930936302245],
-    [51.748140077387845, 19.455829002088336],
-    [51.74813343495636, 19.455829002088336],
-    [51.74812015009046, 19.45567878324681],
-    [51.74803047714349, 19.45569487812272],
-    [51.74802715591982, 19.45566805332957],
-    [51.74798065876271, 19.45564122853643],
-    [51.74790360612168, 19.45565943879465],
-    [51.74790360612168, 19.455670168711883],
-    [51.747886999954204, 19.455675533670522],
-    [51.74789032118818, 19.45573991317401],
-    [51.747926854745856, 19.45573991317401],
-    [51.747943460898675, 19.455997431188084],
+    [ 51.747942132464956 , 19.45599424291228 ],
+    [ 51.747988629661705 , 19.45598887795364 ],
+    [ 51.74799394366962 , 19.456011410681644 ],
+    [ 51.748070331808556 , 19.455995315805733 ],
+    [ 51.748070331808556 , 19.455968491012626 ],
+    [ 51.74811682887338 , 19.455957761095352 ],
+    [ 51.74811682887338 , 19.455936301260884 ],
+    [ 51.74814671981834 , 19.455930936302245 ],
+    [ 51.748140077387845 , 19.455829002088336 ],
+    [ 51.74813343495636 , 19.455829002088336 ],
+    [ 51.74812015009046 , 19.45567878324681 ],
+    [ 51.74803047714349 , 19.45569487812272 ],
+    [ 51.74802715591982 , 19.45566805332957 ],
+    [ 51.74798065876271 , 19.45564122853643 ],
+    [ 51.74790360612168 , 19.45565943879465 ],
+    [ 51.74790360612168 , 19.455670168711883 ],
+    [ 51.747886999954204 , 19.455675533670522 ],
+    [ 51.74789032118818 , 19.45573991317401 ],
+    [ 51.747926854745856 , 19.45573991317401 ],
+    [ 51.747943460898675 , 19.455997431188084 ]
+    
   ]).addTo(map);
 
   var B9 = L.polygon([
@@ -679,28 +862,103 @@ function initMap() {
     [51.744754403050074, 19.45409417152405],
   ]).addTo(map);
 
-  MECHANICZNY = new Set([A20, A22, A21, A19, A18]);
-  EEIA = new Set([A12_A, A12_B, A10, A11, B19, B18]);
-  CHEMICZNY = new Set([A34, A24, A33, A2, A26, A8, A9]);
-  TMIWT = new Set([A16, A33]);
-  BINOZ = new Set([A2, A3, A4]);
-  BAIIS = new Set([B7, B6, B16]);
-  FTIMS = new Set([B9, B15, B11, B14]);
-  ZIP = new Set([B9]);
-  IPOS = new Set([B5, B4, B10, A1, A6]);
-  ADMINISTRACJA = new Set([A17, A27, A28, A13, A15, B3, B2, B1, B19]);
-  OGOLNOUCZELNIANE = new Set([B22, A19]);
-  POZAWYDZIALOWE = new Set([A16, A30, B28, B25, B24, B17, B12]);
-  POZOSTAŁE = new Set([B23, B20, B21, B13, A5]);
+   MECHANICZNY = new Set([A20, A22, A21, A19, A18]);
+  polygons.set("A20",A20)
+  polygons.set("A22",A22)
+  polygons.set("A21",A21)
+  polygons.set("A19",A19)
+  polygons.set("A18",A18)
 
-  MECHANICZNY.forEach(function (building) {
+   EEIA = new Set([A12_A, A12_B, A10, A11, B19, B18]);
+  polygons.set("A12_A",A12_A)
+  polygons.set("A12_B",A12_B)
+  polygons.set("A10",A10)
+  polygons.set("A11",A11)
+  polygons.set("B19",B19)
+  polygons.set("B18",B18)
+
+   CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9]);//usuwam a33 bo nei ma dla niego poigona??
+  polygons.set("A34",A34)
+  polygons.set("A24",A24)
+  polygons.set("A2",A2)
+  polygons.set("A26",A26)
+  polygons.set("A8",A8)
+  polygons.set("A9",A9)
+
+  TMIWT = new Set([A16]);//usuwam a33 bo nei ma dla niego poigona??
+  polygons.set("A16",A16)
+
+  BINOZ = new Set([A2, A3, A4]);
+  polygons.set("A2",A2)
+  polygons.set("A3",A3)
+  polygons.set("A4",A4)
+
+   BAIIS = new Set([B7, B6, B16]);
+  polygons.set("B7",B7)
+  polygons.set("B6",B6)
+  polygons.set("B16",B16)
+
+   FTIMS = new Set([B9, B15, B11, B14]);
+  polygons.set("B9",B9)
+  polygons.set("B15",B15)
+  polygons.set("B11",B11)
+  polygons.set("B14",B14)
+
+   ZIP = new Set([B9]);
+  polygons.set("B9",B9)
+
+  IPOS = new Set([B5, B4, B10, A1, A6]);
+  polygons.set("B5",B5)
+  polygons.set("B4",B4)
+  polygons.set("B10",B10)
+  polygons.set("A1",A1)
+  polygons.set("A6",A6)
+
+  ADMINISTRACJA = new Set([A17, A27, A28, A13, A15, B3, B2, B1, B19]);
+  polygons.set("A17",A17)
+  polygons.set("A27",A27)
+  polygons.set("A28",A28)
+  polygons.set("A13",A13)
+  polygons.set("A15",A15)
+  polygons.set("B3",B3)
+  polygons.set("B2",B2)
+  polygons.set("B1",B1)
+  polygons.set("B19",B19)
+
+   OGOLNOUCZELNIANE = new Set([B22, A19]);
+  polygons.set("B22",B22)
+  polygons.set("A19",A19)
+
+   POZAWYDZIALOWE = new Set([A16, A30, B28, B25, B24, B17, B12]);
+  polygons.set("A16",A16)
+  polygons.set("A30",A30)
+  polygons.set("B28",B28)
+  polygons.set("B25",B25)
+  polygons.set("B24",B24)
+  polygons.set("B17",B17)
+  polygons.set("B12",B12)
+
+   POZOSTALE = new Set([B23, B20, B21, B13, A5]);
+  polygons.set("B23",B23)
+  polygons.set("B20",B20)
+  polygons.set("B21",B21)
+  polygons.set("B13",B13)
+  polygons.set("A5",A5)
+
+  for (const [key, value] of polygons) {
+    value.addEventListener("click", () => addBuilindEvent(key), false);
+  }
+
+
+
+   MECHANICZNY.forEach(function (building) {
     building.setStyle({
       fillColor: "gray",
       color: "blue",
       weight: 3,
     });
   });
-
+  
   EEIA.forEach(function (building) {
     building.setStyle({
       fillColor: "gray",
@@ -708,7 +966,7 @@ function initMap() {
       weight: 3,
     });
   });
-
+  
   CHEMICZNY.forEach(function (building) {
     building.setStyle({
       fillColor: "gray",
@@ -716,6 +974,8 @@ function initMap() {
       weight: 3,
     });
   });
+  
+ 
 
   BINOZ.forEach(function (building) {
     building.setStyle({
@@ -749,6 +1009,7 @@ function initMap() {
     });
   });
 
+
   IPOS.forEach(function (building) {
     building.setStyle({
       fillColor: "gray",
@@ -781,7 +1042,7 @@ function initMap() {
     });
   });
 
-  POZOSTAŁE.forEach(function (building) {
+  POZOSTALE.forEach(function (building) {
     building.setStyle({
       fillColor: "gray",
       color: "gray",
@@ -789,104 +1050,83 @@ function initMap() {
     });
   });
 
-  //
-  // mechaniczny_v1.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22\nBUDYNEK A22");
-  //to jest Json w ktorym sa dane na temat budynkow
-  let bulidingsData =
-    '{"buildings":[' +
-    '{"name":"Mechaniczny","addres":"Stefanowskiego 18","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Mechaniczny2","addres":"Mechaniczny addres234567" },' +
-    '{"name":"Mechaniczny3","addres":"Mechaniczny addres" }]}';
-  //to jest funkcja ktora przypisuje funkcej tworzaca okienko z informacjamido danego budynku
-  //na podstawie przekazanej nazwy zasysa dane z JSONA bulidingsData
-  //
-  function addBuilindEvent(name) {
-    var elemDiv = document.createElement("div");
-    elemDiv.id = "floating-info-box";
-
-    var blur = document.createElement("div");
-    blur.id = "blur";
-    // blur.style.height=screen.height+"px"
-
-    var closeBtn = document.createElement("button");
-    closeBtn.id = "close-floating-info-box";
-    // closeBtn.append("X")
-    closeBtn.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
-    );
-
-    blur.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
-    );
-
-    elemDiv.append(closeBtn);
-
-    const obj = JSON.parse(bulidingsData);
-
-    var infoCode = document.createElement("span");
-    infoCode.classList.add("info-box");
-    infoCode.append(
-      "KOD BUDYNKU: " +
-        obj.buildings.filter(function (item) {
-          return item.code === name;
-        })[0]["code"]
-    );
-    elemDiv.append(infoCode);
-
-    var info1 = document.createElement("span");
-    info1.classList.add("info-box");
-    info1.append(
-      "NAZWA: " +
-        obj.buildings.filter(function (item) {
-          return item.code === name;
-        })[0]["name"]
-    );
-    elemDiv.append(info1);
-
-    var found = obj.buildings.filter(function (item) {
-      return item.code === name;
-    })[0]["addres"];
-
-    var info2 = document.createElement("span");
-    info2.classList.add("info-box");
-    info2.append("ADRES: " + found);
-    elemDiv.append(info2);
-
-    var qr = document.createElement("img");
-    qr.src = obj.buildings.filter(function (item) {
-      return item.code === name;
-    })[0]["QRSrc"];
-    qr.id = "qrImage";
-    elemDiv.append(qr);
-
-    var image = document.createElement("img");
-    image.src = obj.buildings.filter(function (item) {
-      return item.code === name;
-    })[0]["imgSrc"];
-    image.id = "bdImage";
-    elemDiv.append(image);
-
-    document.body.appendChild(elemDiv);
-    document.body.appendChild(blur);
-  }
-
-  //przypisanie do danego budynku funkcji od okienka jako argument kod budynku :))
-  //WAZNE nazwa w argumencie musi znajdowac sie w jsonie inaczej kraksa
-  A20.addEventListener("click", () => addBuilindEvent("A10"), false);
-
-  // mechaniczny_v2.bindPopup("WYDZIAŁ MECHANICZNY\nBUDYNEK A20");
-
-  // chemiczny_v1.bindPopup("WYDZIAŁ CHEMICZNY\nBUDYNEK A33");
 }
 
 document.addEventListener("DOMContentLoaded", initMap);
+
+
+
+const buildingObj = JSON.parse(bulidingsData);
+const buildings_names = new Set();
+buildingObj.buildings.forEach(obj => {
+  // budynki.set(obj.name,obj.code)
+  buildings_names.add(obj.name)
+})
+buildings_names.forEach(name=>{
+  let codes=buildingObj.buildings.filter(function (n){
+    return n.name===name;
+  }).map(function (c) {
+    return c.code;
+  });
+  console.log(name)
+  console.log(codes)
+
+  const firstLevelItem=document.createElement('li');
+  firstLevelItem.appendChild(document.createTextNode(name));
+
+  firstLevelItem.classList.add("first-level")
+
+  const listView=document.createElement('ul');
+  listView.classList.add("second-level")
+
+  for(var i=0;i<codes.length;i++)
+  {
+    const listViewItem=document.createElement('li');
+    listViewItem.appendChild(document.createTextNode(codes[i]));
+    const currCode=codes[i]
+    listViewItem.addEventListener("click", () => addBuilindEvent(currCode), false);
+
+    listView.appendChild(listViewItem);
+  }
+  firstLevelItem.append(listView)
+  document.getElementById("collapse").appendChild(firstLevelItem);
+});
+
+
+
+
+function createCollapsedList(){
+  for (let i of document.querySelectorAll(".collapse ul")) {
+    let tog = document.createElement("div");
+    tog.innerHTML = i.previousSibling.textContent;
+    tog.className = "toggle";
+    tog.onclick = () => {
+      if(tog.classList.contains("show"))
+      {
+        tog.classList.remove("show")
+      }else
+      {
+        collapseAll()
+        tog.classList.toggle("show");
+
+      }
+    }
+    i.parentElement.removeChild(i.previousSibling);
+    i.parentElement.insertBefore(tog, i);
+  }
+}
+createCollapsedList()
+function  collapseAll()
+{
+  for (let tog of document.querySelectorAll(".toggle")) {
+    // tog.classList.toggle("show");
+    // x.style.display = "none";
+    if(tog.classList.contains("show"))
+    {
+      //
+      tog.classList.remove("show")
+    }
+
+  }
+}
+
