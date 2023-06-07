@@ -1137,3 +1137,57 @@ function  collapseAll()
 }
 
 
+function addBuildingInfoEvent() {
+  var elemDiv = document.createElement("div");
+  elemDiv.id = "floating-info-box";
+
+  var blur = document.createElement("div");
+  blur.id = "blur";
+  // blur.style.height=screen.height+"px"
+
+  var closeBtn = document.createElement("button");
+  closeBtn.id = "close-floating-info-box";
+  // closeBtn.append("X")
+  closeBtn.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  blur.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  elemDiv.append(closeBtn);
+
+
+  var imageDescription = document.createElement("span");
+  imageDescription.classList.add("image-descriptiono-box");
+  imageDescription.append("Projekt stworzony przez: Karolina, Witus, Marti, Mati");
+  elemDiv.append(imageDescription);
+
+  var image = document.createElement("img");
+  image.src="images/inforrmatycy.png";
+  image.id = "bdImage";
+  elemDiv.append(image);
+ 
+
+  document.body.appendChild(elemDiv);
+  document.body.appendChild(blur);
+  
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var infoButton = document.getElementById('info-button');
+  infoButton.addEventListener('click', function() {
+    addBuildingInfoEvent();
+  });
+});

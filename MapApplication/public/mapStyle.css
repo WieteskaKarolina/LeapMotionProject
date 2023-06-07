@@ -134,3 +134,60 @@ span.info-box {
     /*float: left;*/
 
   }
+
+  .collapse, .collapse ul {
+    list-style-type: none;
+    padding-left: 0px;
+  }
+
+  /* (B) LIST ITEMS */
+  .collapse li {
+    padding: 10px;
+    margin: 5px;
+    background-color: darkgray;
+  }
+  .second-level >li
+  {
+    /*width: 100%;*/
+    /*padding-left: 0 !important;*/
+    margin-right: 0 ;
+    margin-left: 0 ;
+    border: solid 2px black;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+  }
+  li.first-level
+  {
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
+  /* (C) TOGGLE */
+  .toggle {
+    padding: 10px;
+    cursor: pointer;
+  }
+  .toggle::before {
+    display: inline-block;
+    width: 15px;
+    content: "+";
+  }
+  #info-button
+  {
+    position: absolute;
+    top: 1%;
+    right: 2%;
+
+    width: 50px;
+    height: 50px;
+    background: url("images/info.png") no-repeat scroll 0 0 transparent;
+    z-index: 1000;
+    border-color: transparent;
+  }
+  .toggle.show::before { content: "-"; }
+
+  /* (D) SHOW/HIDE */
+  .collapse ul { display: none; }
+  .toggle.show + ul { display: block; }
