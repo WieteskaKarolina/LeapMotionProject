@@ -1132,3 +1132,9 @@ function  collapseAll()
   }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  var infoButton = document.querySelector('.info-button');
+  infoButton.addEventListener('click', function() {
+    window.location.href = '/info';
+  });
+});
