@@ -1,0 +1,13 @@
+MECHANICZNY = new Set([A20, A22, A21, A19, A18]);
+EEIA = new Set([A12_A, A12_B, A10, A11, B19, B18]);
+CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9,A33]);
+TMIWT = new Set([A16]);
+BINOZ = new Set([A2, A3, A4]);
+BAIIS = new Set([B7, B6, B16]);
+FTIMS = new Set([B9, B15, B11, B14]);
+ ZIP = new Set([B9]);
+IPOS = new Set([B5, B4, B10, A1, A6]);
+ADMINISTRACJA = new Set([A17, A27, A28, A13, A15, B3, B2, B1, B19]);
+OGOLNOUCZELNIANE = new Set([B22, A19]);
+POZAWYDZIALOWE = new Set([A16, A30, B28, B25, B24, B17, B12]);
+POZOSTALE = new Set([B23, B20, B21, B13, A5]);

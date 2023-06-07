@@ -18,19 +18,19 @@ const polygons = new Map();
 let bulidingsData =
     '{"buildings":[' +
     '{"name":"Wydział Chemiczny","addres":"Żeromskiego 114","code":"A18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A17","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Wydział Technologii Materiałowych i Wzornictwa Tekstyliów","addres":"Żwirki 36","code":"A16","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Administracja","addres":"Żeromskiego 116","code":"A17","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"IFE","addres":"Żwirki 36","code":"A16","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Stefanowskiego 1/15","code":"A18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"n/a","code":"A24","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Chemiczny","addres":"n/a","code":"A26","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Chemiczny","addres":"ul. Żeromskiego 114","code":"A34","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Chemiczny","addres":"Żeromskiego 116","code":"A27","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Żeromskiego 116","code":"A19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Administracja","addres":"Żeromskiego 116","code":"A28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Żeromskiego 116","code":"A20","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Stefanowskiego 1/15","code":"A22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"n/a","code":"A33","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Mechaniczny","addres":"Żeromskiego 116","code":"A21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Chemiczny","addres":"n/a","code":"A33","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"A30","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Stefanowskiego 2","code":"A1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Biotechnologii i Nauk o Żywności","addres":"Stefanowskiego 4/10","code":"A2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
@@ -44,8 +44,8 @@ let bulidingsData =
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"ul. Żeromskiego 116,","code":"A12_B","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Stefanowskiego 18/22","code":"A11","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 175","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Radwańska 29","code":"A13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Wólczańska 181","code":"A15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Administracja","addres":"Radwańska 29","code":"A13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Administracja","addres":"Wólczańska 181","code":"A15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Willa Reinholda Richtera","addres":"Ks. I. Skorupki 6/8","code":"B1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Dział Jakości PŁ","addres":"Ks. I. Skorupki 6/8","code":"B2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Willa Józefa Richtera","addres":"Ks. I. Skorupki 10/12","code":"B3","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
@@ -58,7 +58,7 @@ let bulidingsData =
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 215","code":"B9","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"B28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Politechniki 12","code":"B25","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Wólczańska 223","code":"B22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Ogólnouczelniane","addres":"Wólczańska 223","code":"B22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska 237","code":"B21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska","code":"B20","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 221","code":"B18","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
@@ -67,7 +67,7 @@ let bulidingsData =
     '{"name":"Wydział Fizyki Technicznej, Informatyki i Matematyki Stosowanej","addres":"Stefanowskiego 1/15","code":"B15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Wólczańska 219/223","code":"B13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska 215","code":"B12","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Pozawydziałowe","addres":"Wólczańska 217/221","code":"B19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" }' +
+    '{"name":"Administracja","addres":"Wólczańska 217/221","code":"B19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" }' +
     ']}';
 
 
@@ -877,7 +877,7 @@ function initMap() {
   polygons.set("B19",B19)
   polygons.set("B18",B18)
 
-   CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9,A33]);//usuwam a33 bo nei ma dla niego poigona??
+   CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9, A33, A27]);//usuwam a33 bo nei ma dla niego poigona??
   polygons.set("A34",A34)
   polygons.set("A24",A24)
   polygons.set("A2",A2)
@@ -885,6 +885,8 @@ function initMap() {
   polygons.set("A8",A8)
   polygons.set("A9",A9)
   polygons.set("A33",A33)
+  polygons.set("A27",A27)
+
 
   TMIWT = new Set([A16]);//usuwam a33 bo nei ma dla niego poigona??
   polygons.set("A16",A16)
@@ -915,9 +917,8 @@ function initMap() {
   polygons.set("A1",A1)
   polygons.set("A6",A6)
 
-  ADMINISTRACJA = new Set([A17, A27, A28, A13, A15, B3, B2, B1, B19]);
+  ADMINISTRACJA = new Set([A17, A28, A13, A15, B3, B2, B1, B19]);
   polygons.set("A17",A17)
-  polygons.set("A27",A27)
   polygons.set("A28",A28)
   polygons.set("A13",A13)
   polygons.set("A15",A15)
