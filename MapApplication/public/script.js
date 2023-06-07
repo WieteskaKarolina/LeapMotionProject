@@ -46,9 +46,9 @@ let bulidingsData =
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 175","code":"A10","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Administracja","addres":"Radwańska 29","code":"A13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Administracja","addres":"Wólczańska 181","code":"A15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Willa Reinholda Richtera","addres":"Ks. I. Skorupki 6/8","code":"B1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Dział Jakości PŁ","addres":"Ks. I. Skorupki 6/8","code":"B2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
-    '{"name":"Willa Józefa Richtera","addres":"Ks. I. Skorupki 10/12","code":"B3","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Ks. I. Skorupki 6/8","code":"B1","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Ks. I. Skorupki 6/8","code":"B2","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Ks. I. Skorupki 10/12","code":"B3","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Wólczańska 213","code":"B4","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Inżynierii Procesowej i Ochrony Środowiska","addres":"Wólczańska 213","code":"B5","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Budownictwa, Architektury i Inżynierii Środowiska","addres":"Politechniki 6","code":"B6","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
