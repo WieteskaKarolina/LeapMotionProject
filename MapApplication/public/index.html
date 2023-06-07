@@ -46,6 +46,17 @@
     width: 15px;
     content: "+";
   }
+  #info-button
+  {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 50px;
+    height: 50px;
+    background-color: whitesmoke;
+    /*background: url("images/info.png") no-repeat scroll 0 0 transparent;*/
+    z-index: 1000;
+  }
   .toggle.show::before { content: "-"; }
 
   /* (D) SHOW/HIDE */
@@ -55,6 +66,7 @@
   <div class="navbar">
     <h1>Bezdotykowa mapa Politechniki Łódzkiej</h1>
   </div>
+<button id="info-button"></button>
 
   <div class="content">
     <div class="sidebar">

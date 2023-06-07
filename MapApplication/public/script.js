@@ -1058,12 +1058,16 @@ document.addEventListener("DOMContentLoaded", initMap);
 
 
 
-const buildingObj = JSON.parse(bulidingsData);
-const buildings_names = new Set();
+let buildingObj = JSON.parse(bulidingsData);
+var buildings_names = new Set();
 buildingObj.buildings.forEach(obj => {
   // budynki.set(obj.name,obj.code)
   buildings_names.add(obj.name)
 })
+
+const sortedStringsArray = [...buildings_names].sort();
+buildings_names=new Set(sortedStringsArray)
+
 buildings_names.forEach(name=>{
   let codes=buildingObj.buildings.filter(function (n){
     return n.name===name;
