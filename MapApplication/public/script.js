@@ -877,13 +877,14 @@ function initMap() {
   polygons.set("B19",B19)
   polygons.set("B18",B18)
 
-   CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9]);//usuwam a33 bo nei ma dla niego poigona??
+   CHEMICZNY = new Set([A34, A24, A2, A26, A8, A9,A33]);//usuwam a33 bo nei ma dla niego poigona??
   polygons.set("A34",A34)
   polygons.set("A24",A24)
   polygons.set("A2",A2)
   polygons.set("A26",A26)
   polygons.set("A8",A8)
   polygons.set("A9",A9)
+  polygons.set("A33",A33)
 
   TMIWT = new Set([A16]);//usuwam a33 bo nei ma dla niego poigona??
   polygons.set("A16",A16)
