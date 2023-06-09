@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Aplikacja testowa</title>
+<title>Gra Memory</title>
 <meta name="description" content="Our first page">
 <meta name="keywords" content="html tutorial template">
 <link rel="stylesheet" href="gameStyle.css">
@@ -10,19 +10,33 @@
     <div id="button-container">
         <div id="counter" >Punkty: 0</div>
         <div class="button-row">
-        <button type="button" id="zolty" class="guzik">żółty</button>
-        <button type="button" id="zielony" class="guzik">zielony</button>
+        <button type="button" id="zolty" class="guzik">niebieski</button>
+        <button type="button" id="zielony" class="guzik">czerwony</button>
         </div>
         <div class="button-row">
-        <button type="button" id="czerwony" class="guzik">czerwony</button>
-        <button type="button" id="niebieski" class="guzik">niebieski</button>
+        <button type="button" id="czerwony" class="guzik">zielony</button>
+        <button type="button" id="niebieski" class="guzik">żółty</button>
         </div>
         <div class="button-row">
-        <button type="button"    id="start">
-            <img src="images/icon-start.png" alt="Button Image">
+        <button type="button"    id="start" class="controlBtn">
+            <img src="images/play.png" id="btnStartImage" alt="Button Image">
         </button>
+    
         </div>
         
+    </div>
+
+    <div id="backToMap" onclick="redirectToMap()"><img src="images/back-button.png" alt=""></div>
+    <div id="blur" onclick="closeInfo()"></div>
+    <div id="showInfo" onclick="showInfo()"><img src="images/information.png" alt=""></div>
+    <div id="info-container" onclick="closeInfo()">
+        <h1>Instrukcja Gry</h1>
+        <h2>1. Naciśnij guzik play</h2> <img src="images/play.png" style="width:40px">
+        <h2>2. Poczekaj aż przyciki skończą się podświetlać</h2>
+        <h2>3. Naciśnij przyciki w tej samej kolejności</h2>
+        <h2>4. Jeśli chcesz zacząć od nowa naciśnij guzik restart</h2><img src="images/restart.png" style="width:40px">
+        <h2>5. Miłej zabawy!</h2>
+        <button onclick="closeInfo()" id="confirm-btn">ROZUMIEM</button>
     </div>
     <script src="gameScript.js"></script>
     </body>

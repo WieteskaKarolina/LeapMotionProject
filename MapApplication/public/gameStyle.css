@@ -1,67 +1,129 @@
 .button-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .button-row:last-child {
-    justify-content: center;
-  }
-  
-  #zielony {
-    background-color: rgb(67, 189, 15); 
-  }
-  
-  #niebieski {
-    background-color: rgb(0, 140, 255);  
-  }
-  
-  #czerwony {
-    background-color: rgb(255, 0, 0); 
-  }
-  
-  #zolty {
-    background-color: rgb(255, 221, 0); 
-  }
-  
-  #start {
-    border: none;
-    background-color: transparent;
-    margin-top: 50px;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
-  #counter{
-    color: #000;
-    font-size: 50px;
-    font-variant: none;
-    font-family: cursive;
-    font-weight: bold;
-    font-style: normal;
-    text-align: center;
-    padding: 30px 30px; 
+.button-row:last-child {
+  justify-content: center;
+}
 
-  }
+#zielony {
+  background-color: rgb(67, 189, 15); 
+}
 
-  .guzik {
-    border-radius: 20px; 
-    width: 48%;
-    height: 300px;
-    border-color: black;
-    padding: 30px 30px; 
-    font-size: 30px; 
-    font-variant: none;
-    font-family: cursive;
-    font-weight: bold;
-    font-style: normal;
-    color: white; 
-    background-color: transparent;
-  }
-  
-  #button-container {
-    max-width: 800px;
-    margin: 0 auto;
-    margin-top: 40%;
-    margin-bottom: 40%;
-  }
+#niebieski {
+  background-color: rgb(0, 140, 255);  
+}
 
-  
+#czerwony {
+  background-color: rgb(255, 0, 0); 
+}
+
+#zolty {
+  background-color: rgb(255, 221, 0); 
+}
+
+#start {
+  border: none;
+  background-color: transparent;
+  margin-top: 2%;
+}
+
+#counter{
+  color: #000;
+  font-size: 50px;
+  font-variant: none;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+  padding: 30px 30px; 
+
+}
+
+.guzik {
+  border-radius: 20px; 
+  width: 48%;
+  height: 300px;
+  border-color: black;
+  padding: 30px 30px; 
+  font-size: 30px; 
+  font-variant: none;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  color: white; 
+  background-color: transparent;
+}
+
+#button-container {
+  max-width: 70%;
+  margin: 0 auto;
+  /* margin-top: 40%;
+  margin-bottom: 40%; */
+}
+#info-container
+{
+  position: absolute;
+  z-index: 2;
+  width: 50%;
+  top: 20%;
+  left: 25%;
+  background-color: rgba(194, 194, 214, .80);
+  text-align: center;
+  border-radius: 20px; 
+
+}
+
+
+img{
+  width:100%;
+  height:100%;
+}
+
+.controlBtn
+{
+  width: 10%;
+  height: auto;
+}
+#blur
+{
+position: absolute;
+width: 100%;
+top: 0;
+left: 0;
+background: #000;
+opacity: 0.5;
+z-index: 1;
+height: 100%;
+}
+
+#showInfo
+{
+position: absolute;
+width: 5%;
+height: auto;
+top: 0;
+right: 0;
+margin-right: 5%;
+margin-top: 3%;
+}
+
+#backToMap
+{
+position: absolute;
+width: 5%;
+height: auto;
+top: 0;
+left: 0;
+margin-left: 5%;
+margin-top: 3%;
+}
+
+#confirm-btn
+{
+margin-bottom: 2%;
+padding: 15px;
+font-size: 20px;
+}

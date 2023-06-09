@@ -18,6 +18,7 @@ function getRandomColor(max) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+let btnColorOnClick='rgb(194, 194, 214)'
 let list=[]
 let licznikKlikniec=0
 let licznikTur=2
@@ -25,14 +26,17 @@ let ruchyGracza=[]
 let currentColors=2
 let czyJestWyswietlane=false
 
-var snd1 = new Audio("btn1.mp3");
-var snd2 = new Audio("btn2.mp3"); // buffers automatically when created
-var snd3 = new Audio("btn3.mp3"); // buffers automatically when created
-var snd4 = new Audio("btn4.mp3"); // buffers automatically when created
-
+var snd1 = new Audio("sounds/btn1.mp3");
+var snd2 = new Audio("sounds/btn2.mp3"); // buffers automatically when created
+var snd3 = new Audio("sounds/btn3.mp3"); // buffers automatically when created
+var snd4 = new Audio("sounds/btn4.mp3"); // buffers automatically when created
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+  
 
 function updateCounter() {
-    counter.textContent = 'Punkty: ' + licznikKlikniec;
+    counter.textContent = 'Punkty: ' + punktyGracza;
   }
 
 document.getElementById("zolty").addEventListener("click",  function buttonHandler(){
@@ -42,6 +46,9 @@ document.getElementById("zolty").addEventListener("click",  function buttonHandl
     snd1.play();
     ruchyGracza.push("zolty");
     licznikKlikniec++;
+    let tempColor=window.getComputedStyle(document.getElementById("zolty")).backgroundColor
+    document.getElementById("zolty").style.backgroundColor=btnColorOnClick;
+    delay(200).then(() => document.getElementById("zolty").style.backgroundColor=tempColor);
    }
     ,false)
 
@@ -52,6 +59,9 @@ document.getElementById("zielony").addEventListener("click",  function buttonHan
     snd2.play();
     ruchyGracza.push("zielony");
     licznikKlikniec++;
+    let tempColor=window.getComputedStyle(document.getElementById("zielony")).backgroundColor
+    document.getElementById("zielony").style.backgroundColor=btnColorOnClick;
+    delay(200).then(() => document.getElementById("zielony").style.backgroundColor=tempColor);
    },false)
 document.getElementById("czerwony").addEventListener("click",  function buttonHandler(){
     if(czyJestWyswietlane) return false
@@ -60,6 +70,9 @@ document.getElementById("czerwony").addEventListener("click",  function buttonHa
     snd3.play();
     ruchyGracza.push("czerwony");
     licznikKlikniec++;
+    let tempColor=window.getComputedStyle(document.getElementById("czerwony")).backgroundColor
+    document.getElementById("czerwony").style.backgroundColor=btnColorOnClick;
+    delay(200).then(() => document.getElementById("czerwony").style.backgroundColor=tempColor);
    },false)
 document.getElementById("niebieski").addEventListener("click",  function buttonHandler(){
     if(czyJestWyswietlane) return false
@@ -68,6 +81,10 @@ document.getElementById("niebieski").addEventListener("click",  function buttonH
     snd4.play();
     ruchyGracza.push("niebieski");
     licznikKlikniec++;
+    let tempColor=window.getComputedStyle(document.getElementById("niebieski")).backgroundColor
+    document.getElementById("niebieski").style.backgroundColor=btnColorOnClick;
+    delay(200).then(() => document.getElementById("niebieski").style.backgroundColor=tempColor);
+
    },false)
 
 
@@ -89,7 +106,7 @@ function generateList()
 
 function validate()
 {
-    for(let i=0;i<licznikTur;i++)
+    for(let i=0;i<licznikKlikniec;i++)
     {
         if(list[i] != ruchyGracza[i])
         {
@@ -159,13 +176,14 @@ async function czekajNaLicznik()
         await sleep(10)
         
     } return true
+  
 
 }
 
 generateList()
 licznikKlikniec=0
 ruchyGracza=[]
-
+var punktyGracza=0
 async function mainLoop()
 {
     licznikKlikniec=0
@@ -175,7 +193,6 @@ async function mainLoop()
        
         disableButtons()
         await podswietl()
-        console.log("dupsko")
         enableButtons()
             if(await czekajNaLicznik()==true){
             console.log("sprawdzam....")
@@ -184,20 +201,24 @@ async function mainLoop()
                 console.log("przegranko")
                 licznikTur=2
                 licznikKlikniec=0
+                punktyGracza=0
                 ruchyGracza=[]
                 list=[]
                 generateList()
-                document.getElementById("start").style.visibility = 'visible';
+                document.getElementById("btnStartImage").src='images/start.png'
                 updateCounter()
                 break
 
             }else
             {
-                updateCounter()
+                
                 console.log("wgranko")
+                punktyGracza=licznikTur-1
                 licznikTur++
                 addColorToList()
-            }}
+                updateCounter()
+            }
+        }
             licznikKlikniec=0
             ruchyGracza=[]
     }
@@ -205,19 +226,37 @@ async function mainLoop()
     
 }
 
-
+var started=false
 
 document.getElementById("start").addEventListener("click",  ()=>
 {
-    mainLoop();
-    document.getElementById("start").style.visibility = 'hidden';
+    if(started==false)
+    {
+        mainLoop();
+        document.getElementById("btnStartImage").src='images/restart.png'
+        started=true
+    }else
+    {
+        window.location.reload();
+    }
+
 },false)
 
 
+function closeInfo(){
+    document.getElementById("info-container").hidden=true
+    document.getElementById("blur").hidden=true
+}
 
+function showInfo()
+{
+    document.getElementById("info-container").hidden=false
+    document.getElementById("blur").hidden=false
+}
   
  
-  
+function redirectToMap(){
+    window.location.href = '/';
+}
 
-// mainLoop()
 
