@@ -67,6 +67,7 @@ let bulidingsData =
     '{"name":"Wydział Fizyki Technicznej, Informatyki i Matematyki Stosowanej","addres":"Stefanowskiego 1/15","code":"B15","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Wydział Mechaniczny","addres":"Wólczańska 219/223","code":"B13","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska 215","code":"B12","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Pozawydziałowe","addres":"Al. Politechniki 12, 90-924 Łódź","code":"B24","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Administracja","addres":"Wólczańska 217/221","code":"B19","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" }' +
     ']}';
 
