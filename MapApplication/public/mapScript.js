@@ -1180,6 +1180,19 @@ function addBuildingInfoEvent() {
   elemDiv.append(image);
  
 
+  var gameImage = document.createElement("img");
+  gameImage.src="images/memory-game.png";
+  gameImage.id = "gameImage";
+  elemDiv.append(gameImage);
+ 
+  gameImage.addEventListener(
+    "click",
+    () => {
+      document.location.href = '/game';
+    },
+    "false"
+  );
+
   document.body.appendChild(elemDiv);
   document.body.appendChild(blur);
   
