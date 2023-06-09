@@ -1114,12 +1114,27 @@ function createCollapsedList(){
       {
         collapseAll()
         tog.classList.toggle("show");
-
       }
     }
+
     i.parentElement.removeChild(i.previousSibling);
     i.parentElement.insertBefore(tog, i);
   }
+
+  let tog = document.querySelectorAll(".toggle")[document.querySelectorAll(".toggle").length-1];
+  tog.onclick = () => {
+    if(tog.classList.contains("show"))
+    {
+      tog.classList.remove("show")
+    }else
+    {
+      collapseAll()
+      tog.classList.toggle("show");
+    }
+    sidebar.scroll(0,1000)
+
+  }
+
 }
 createCollapsedList()
 function  collapseAll()
@@ -1204,3 +1219,5 @@ document.addEventListener('DOMContentLoaded', function() {
     addBuildingInfoEvent();
   });
 });
+
+

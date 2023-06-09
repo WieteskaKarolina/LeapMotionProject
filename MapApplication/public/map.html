@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <link rel="stylesheet" href="mapStyle.css" />
 </head>
+
 <body>
   <div class="navbar">
     <h1>Bezdotykowa mapa Politechniki Łódzkiej</h1>
@@ -13,13 +14,16 @@
 
   <div class="content">
     <div class="sidebar">
-      <!-- Treść listy budynków -->
+      <button class ="scroll-btn" id="button-up"></button>
       <ul class="collapse" id="collapse">
       </ul>
+      <button class ="scroll-btn" id="button-down"></button>
     </div>
     <div id="map"></div>
   </div>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="sideBarScrollScript.js"></script>
   <script src="mapScript.js"></script>
+
 </body>
 </html>

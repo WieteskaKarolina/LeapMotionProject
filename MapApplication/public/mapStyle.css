@@ -191,3 +191,27 @@ span.info-box {
   /* (D) SHOW/HIDE */
   .collapse ul { display: none; }
   .toggle.show + ul { display: block; }
+
+  .scroll-btn{
+    width: 100%;
+    padding: 10%;
+    /*background-color: transparent;*/
+    border: none;
+    background-color: #8b000063 !important;
+    border-radius: 50px;
+
+  }
+  #button-up {
+    position: sticky;
+    top: 0;
+    background: url('images/up-arrow.png') no-repeat scroll center transparent;
+    background-size: 70px auto; /* to specify dimensions explicitly */
+  }
+  #button-down {
+    position: sticky;
+    bottom: 0;
+    background: url('images/up-arrow.png') no-repeat scroll center transparent;
+    background-size: 70px auto; /* to specify dimensions explicitly */
+    transform: rotate(180deg);
+
+  }
