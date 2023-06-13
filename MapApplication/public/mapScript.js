@@ -58,6 +58,7 @@ let bulidingsData =
     '{"name":"Wydział Elektrotechniki Elektroniki Informatyki i Automatyki","addres":"Wólczańska 215","code":"B9","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Żeromskiego 116","code":"B28","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Politechniki 12","code":"B25","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
+    '{"name":"Wydział Budownictwa, Architektury i Inżynierii Środowiska","addres":"n/a","code":"B16","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Ogólnouczelniane","addres":"Wólczańska 223","code":"B22","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska 237","code":"B21","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
     '{"name":"Pozawydziałowe","addres":"Wólczańska","code":"B20","imgSrc":"images/A10img.jpg","QRSrc":"images/A10QR.png" },' +
@@ -640,6 +641,16 @@ function initMap() {
     [ 51.74847885420959 , 19.4529675716748 ]
   ]).addTo(map);
 
+  var drzewo = L.polygon([
+    [ 51.748575773512734 , 19.454365773555438 ]
+,[ 51.748569130288324 , 19.454338945533472 ]
+,[ 51.748552522223044 , 19.45434431113787 ]
+, [ 51.74854587899522 , 19.454365773555438 ]
+, [ 51.748559165449876 , 19.454387235972998 ]
+, [ 51.74857245190063 , 19.454381870368596 ]
+  ]).addTo(map)
+  drzewo.addEventListener("click", showDrzewoInfo, false);
+
   var B7 = L.polygon([
     [51.74786011244874, 19.45135295391083],
     [51.747959773010976, 19.4524097442627],
@@ -940,6 +951,7 @@ function initMap() {
   polygons.set("B24",B24)
   polygons.set("B17",B17)
   polygons.set("B12",B12)
+  polygons.set("drzewo", drzewo)
 
    POZOSTALE = new Set([B23, B20, B21, B13, A5]);
   polygons.set("B23",B23)
@@ -1222,3 +1234,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+function showDrzewoInfo() {
+  var elemDiv = document.createElement("div");
+  elemDiv.id = "floating-info-box";
+
+  var blur = document.createElement("div");
+  blur.id = "blur";
+  // blur.style.height=screen.height+"px"
+
+  var closeBtn = document.createElement("button");
+  closeBtn.id = "close-floating-info-box";
+  // closeBtn.append("X")
+  closeBtn.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  blur.addEventListener(
+      "click",
+      () => {
+        document.getElementById("floating-info-box").remove();
+        document.getElementById("blur").remove();
+      },
+      "false"
+  );
+
+  elemDiv.append(closeBtn);
+
+
+  var imageDescription = document.createElement("span");
+  imageDescription.classList.add("image-descriptiono-box");
+  imageDescription.append("Projekt stworzony przez: Karolina, Witus, Marti, Mati");
+  elemDiv.append(imageDescription);
+
+  var image = document.createElement("img");
+  image.src="images/inforrmatycy.png";
+  image.id = "bdImage";
+  elemDiv.append(image);
+
+  document.body.appendChild(elemDiv);
+  document.body.appendChild(blur);
+  
+}
