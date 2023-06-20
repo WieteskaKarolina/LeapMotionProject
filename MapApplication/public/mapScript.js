@@ -649,7 +649,7 @@ function initMap() {
 , [ 51.748559165449876 , 19.454387235972998 ]
 , [ 51.74857245190063 , 19.454381870368596 ]
   ]).addTo(map)
-  drzewo.addEventListener("click", showDrzewoInfo, false);
+  drzewo.addEventListener("click", showTreeInfo, false);
 
   var B7 = L.polygon([
     [51.74786011244874, 19.45135295391083],
@@ -1171,60 +1171,75 @@ function addBuildingInfoEvent() {
 
   var blur = document.createElement("div");
   blur.id = "blur";
-  // blur.style.height=screen.height+"px"
 
   var closeBtn = document.createElement("button");
   closeBtn.id = "close-floating-info-box";
-  // closeBtn.append("X")
   closeBtn.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
+    "click",
+    () => {
+      document.getElementById("floating-info-box").remove();
+      document.getElementById("blur").remove();
+    },
+    false
   );
 
   blur.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
+    "click",
+    () => {
+      document.getElementById("floating-info-box").remove();
+      document.getElementById("blur").remove();
+    },
+    false
   );
 
-  elemDiv.append(closeBtn);
-
-
-  var imageDescription = document.createElement("span");
-  imageDescription.classList.add("image-descriptiono-box");
-  imageDescription.append("Projekt stworzony przez: Karolina, Witus, Marti, Mati");
-  elemDiv.append(imageDescription);
+  var imageContainer = document.createElement("div");
+  imageContainer.style.position = "relative";
 
   var image = document.createElement("img");
-  image.src="images/inforrmatycy.png";
+  image.src = "images/inforrmatycy.png";
   image.id = "bdImage";
-  elemDiv.append(image);
- 
+  image.style.width = "100%";
+
+  var imageDescription = document.createElement("pre");
+  imageDescription.classList.add("image-description-box");
+  imageDescription.innerHTML = `Mapa stworzona przez: 
+Karolina Wieteska, 
+Wiktor Sztuk,
+Martyna Kalemba,
+Mateusz Lach`;
+
+  imageContainer.append(imageDescription);
+  imageContainer.append(image);
 
   var gameImage = document.createElement("img");
-  gameImage.src="images/memory-game.png";
+  gameImage.src = "images/memory-game.png";
   gameImage.id = "gameImage";
-  elemDiv.append(gameImage);
- 
   gameImage.addEventListener(
     "click",
     () => {
-      document.location.href = '/game';
+      document.location.href = "/game";
     },
-    "false"
+    false
   );
+
+  var gameDescription = document.createElement("pre");
+  gameDescription.classList.add("game-description");
+  gameDescription.textContent = "Graj w Memory";
+
+  var gameContainer = document.createElement("div");
+  gameContainer.appendChild(gameImage);
+  gameContainer.appendChild(gameDescription);
+
+  elemDiv.append(closeBtn);
+  elemDiv.append(imageContainer);
+  elemDiv.append(gameContainer);
 
   document.body.appendChild(elemDiv);
   document.body.appendChild(blur);
-  
 }
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
   var infoButton = document.getElementById('info-button');
@@ -1234,49 +1249,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function showDrzewoInfo() {
+function showTreeInfo() {
   var elemDiv = document.createElement("div");
   elemDiv.id = "floating-info-box";
 
   var blur = document.createElement("div");
   blur.id = "blur";
-  // blur.style.height=screen.height+"px"
 
   var closeBtn = document.createElement("button");
   closeBtn.id = "close-floating-info-box";
-  // closeBtn.append("X")
   closeBtn.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
+    "click",
+    () => {
+      document.getElementById("floating-info-box").remove();
+      document.getElementById("blur").remove();
+    },
+    false
   );
 
   blur.addEventListener(
-      "click",
-      () => {
-        document.getElementById("floating-info-box").remove();
-        document.getElementById("blur").remove();
-      },
-      "false"
+    "click",
+    () => {
+      document.getElementById("floating-info-box").remove();
+      document.getElementById("blur").remove();
+    },
+    false
   );
 
-  elemDiv.append(closeBtn);
-
-
-  var imageDescription = document.createElement("span");
-  imageDescription.classList.add("image-descriptiono-box");
-  imageDescription.append("Projekt stworzony przez: Karolina, Witus, Marti, Mati");
-  elemDiv.append(imageDescription);
+  var imageContainer = document.createElement("div");
+  imageContainer.style.position = "relative";
 
   var image = document.createElement("img");
-  image.src="images/inforrmatycy.png";
+  image.src = "images/inforrmatycy.png";
   image.id = "bdImage";
-  elemDiv.append(image);
+  image.style.width = "100%";
+
+  var imageDescription = document.createElement("pre");
+  imageDescription.classList.add("image-description-box");
+  imageDescription.innerHTML = `Dąb Fabrykant, zwany także Jagoszem – pomnikowy dąb szypułkowy,
+   rosnący w łódzkim parku im. ks. bp. Michała Klepacza. 
+   To charakterystyczne drzewo miasta Łodzi. 
+   EUROPEJSKIE DRZEWO ROKU 2023`;
+
+  imageContainer.append(imageDescription);
+  imageContainer.append(image);
+
+  elemDiv.append(closeBtn);
+  elemDiv.append(imageContainer);
 
   document.body.appendChild(elemDiv);
   document.body.appendChild(blur);
-  
 }
