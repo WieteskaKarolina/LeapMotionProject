@@ -1196,7 +1196,7 @@ function addBuildingInfoEvent() {
   imageContainer.style.position = "relative";
 
   var image = document.createElement("img");
-  image.src = "images/inforrmatycy.png";
+  image.src = "images/IMG-1328.jpg";
   image.id = "bdImage";
   image.style.width = "100%";
 
@@ -1280,7 +1280,7 @@ function showTreeInfo() {
   imageContainer.style.position = "relative";
 
   var image = document.createElement("img");
-  image.src = "images/inforrmatycy.png";
+  image.src = "images/IMG-1328.jpg";
   image.id = "bdImage";
   image.style.width = "100%";
 
