@@ -1078,6 +1078,7 @@ buildingObj.buildings.forEach(obj => {
   buildings_names.add(obj.name)
 })
 
+//sortowanie listy poziomu pierwszego
 const sortedStringsArray = [...buildings_names].sort();
 buildings_names=new Set(sortedStringsArray)
 
@@ -1096,8 +1097,9 @@ buildings_names.forEach(name=>{
   firstLevelItem.classList.add("first-level")
 
   const listView=document.createElement('ul');
-  listView.classList.add("second-level")
-
+  listView.classList.add("second-level");
+  //sortowanie listy drugiego poziomu
+  codes=codes.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
   for(var i=0;i<codes.length;i++)
   {
     const listViewItem=document.createElement('li');
